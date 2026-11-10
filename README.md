@@ -179,13 +179,6 @@ The tables are written to `_ft_summary_tables/{eval_type}/`.
 For sentences, the 192 words are split into three sets (set1: words 1–66, set2: 67–130, set3: 131–192), and results are reported per set and per pair of sets.
 Use `--subs`, `--folders` and `--finetune_exp_names` to summarize a subset.
 
-## Reproducibility
-
-- The seed is set once when a process starts (`random`, `numpy`, `torch` = 0, `cudnn.deterministic = True`). Results therefore depend on the order of operations within a process.
-- `main_iteration_LOSO_ft.py` starts a new process for each LR setting, and the order in `sweep_config.py` matches the paper runs. **Do not reorder the lists.**
-- Within each pretrain folder, the first fine-tuning setting runs in the same process as pretraining. Every later setting loads the saved pretrain checkpoint and runs fine-tuning only. To reproduce a single later setting exactly, place the original pretrain folder under `result/` first so that pretraining is skipped.
-- On the same hardware and software, the fine-tuned weights reproduce bit-exactly. On a different GPU or with different CUDA/cuDNN/PyTorch versions, small numerical differences can occur.
-
 ## Citation
 
 _TBD_
